@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'content',
     'user',
     'Clone_Insta',
+
 ]
 
 MIDDLEWARE = [
