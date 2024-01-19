@@ -1,46 +1,152 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+    <!-- google -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
 
-  <title>Hello, world!</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img
-      src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png" alt=""
-      srcset="" style="width: 50%"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      .flex-fill {
+        flex: 1;
+      }
 
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+      input.search {
+        background-repeat: no-repeat;
+        border: 1px solid #ccc;
+        padding: 5px 5px;
+        width: 120px;
+      }
+
+      input::-webkit-input-placeholder {
+        background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png);
+        background-size: contain;
+        background-position: 1px center;
+        background-repeat: no-repeat;
+        text-align: center;
+        text-indent: 0;
+      }
+
+      @media (min-width: 768px) {
+        .left {
+          margin-right: 33%;
+        }
+      }
+    </style>
+    <title>Hello, world!</title>
+  </head>
+
+  <!-- <body class="bg-secondary bg-opacity-10"> -->
+  <body class="">
+    <!-- 네비바 -->
+    <nav
+      class="navbar bg-white navbar-expand-md ms-1 d-flex flex-nowrap justify-content-between fixed-top w-100">
+      <!-- 로고 -->
+      <div>
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+            alt=""
+            srcset=""
+            style="width: 50%" />
+        </a>
+      </div>
+      <!-- 검색 -->
+      <div>
+        <form class="form-inline" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        </form>
+      </div>
+
+      <!-- 메뉴 -->
+      <div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- 메뉴 리스트 -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link material-icons">home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link material-icons-outlined">home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link material-icons-outlined">send</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link material-icons-outlined">add_box</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link material-icons-outlined">explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link material-icons-outlined">favorite_border</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 메인 화연 -->
+
+    <div class="d-flex flex-row justify-content-center gap-1 pt-2 h-100" style="margin-top: 56px">
+      <!-- feed -->
+      <div class="left border col-md-6 col-10">
+        <div class="border m-1">
+          <!-- 프로필 -->
+          <div class="d-flex align-items-center">
+            <div>
+              <img
+                class="rounded-circle"
+                alt="avatar1"
+                src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+                style="width: 40px" />
+            </div>
+            <div class="ms-1">name</div>
+          </div>
+          <div class="box text-center">
+            <img class="w-100" src="/sample_images/image-1.jpg" alt="" srcset="" />
+          </div>
+          <div>아이콘</div>
+          <div>댓글</div>
+          <div>댓글 잇풋</div>
+        </div>
+      </div>
+      <!-- right -->
+      <div
+        class="right border col-md-4 h-100 d-none d-md-block"
+        style="position: fixed; margin-left: 53%">
+        right
+      </div>
     </div>
-  </div>
-</nav>
 
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
--->
-</body>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+  </body>
 </html>
