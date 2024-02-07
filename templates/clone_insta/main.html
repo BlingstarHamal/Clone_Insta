@@ -15,14 +15,27 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"></script>
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"></script>
     <!-- google -->
     <link
       href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
       rel="stylesheet" />
+
     <style>
       html,
       body {
         height: 100%;
+        -ms-overflow-style: none; /* 스크롤바 제거 모바일페이지에서 작동안함*/
+      }
+
+      ::-webkit-scrollbar {
+        /* 스크롤바 제거*/
+        display: none;
       }
 
       .flex-fill {
@@ -33,7 +46,6 @@
         background-repeat: no-repeat;
         border: 1px solid #ccc;
         padding: 5px 5px;
-        width: 120px;
       }
 
       input::-webkit-input-placeholder {
@@ -45,10 +57,36 @@
         text-indent: 0;
       }
 
+      #reply {
+        box-shadow: none;
+      }
+
+      #reply::-webkit-input-placeholder {
+        background-image: none;
+        text-align: start;
+      }
+
       @media (min-width: 768px) {
         .left {
           margin-right: 33%;
         }
+      }
+
+      @media (768px >= width) {
+        .left {
+          margin-right: 6%;
+        }
+      }
+
+      /* 모달 창 사이즈 조절 */
+      .modal-dialog,
+      .modal-content {
+        height: 70%;
+      }
+
+      .modal-body {
+        max-height: calc(100% - 120px);
+        overflow-y: scroll;
       }
     </style>
     <title>Hello, world!</title>
@@ -57,96 +95,377 @@
   <!-- <body class="bg-secondary bg-opacity-10"> -->
   <body class="">
     <!-- 네비바 -->
-    <nav
-      class="navbar bg-white navbar-expand-md ms-1 d-flex flex-nowrap justify-content-between fixed-top w-100">
+    <nav class="navbar bg-white navbar-expand-md ms-1 d-flex flex-nowrap fixed-top w-100">
       <!-- 로고 -->
-      <div>
-        <a class="navbar-brand" href="#">
-          <img
-            src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
-            alt=""
-            srcset=""
-            style="width: 50%" />
-        </a>
-      </div>
-      <!-- 검색 -->
-      <div>
-        <form class="form-inline" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        </form>
-      </div>
+      <div class="container-fluid">
+        <div>
+          <a class="navbar-brand" href="#">
+            <img
+              src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+              alt=""
+              srcset=""
+              style="width: 50%" />
+          </a>
+        </div>
 
-      <!-- 메뉴 -->
-      <div>
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar2"
+          aria-controls="offcanvasNavbar2">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- 메뉴 리스트 -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link material-icons">home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link material-icons-outlined">home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link material-icons-outlined">send</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link material-icons-outlined">add_box</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link material-icons-outlined">explore</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link material-icons-outlined">favorite_border</a>
-            </li>
-          </ul>
+
+        <div
+          class="offcanvas offcanvas-end text-bg-white w-50"
+          tabindex="-1"
+          id="offcanvasNavbar2"
+          aria-labelledby="offcanvasNavbar2Label">
+          <div class="offcanvas-body">
+            <!-- 검색 -->
+            <div style="margin: 0 auto">
+              <form class="form-inline" role="search" id="search">
+                <input
+                  class="search form-control"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search" />
+              </form>
+            </div>
+
+            <!-- 메뉴 -->
+            <div>
+              <!-- 메뉴 리스트 -->
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link material-icons">home</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link material-icons-outlined">home</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link material-icons-outlined">send</a>
+                </li>
+                <li class="nav-item" style="cursor: pointer">
+                  <a
+                    class="nav-link material-icons-outlined"
+                    data-bs-toggle="modal"
+                    data-bs-target="#add_box">
+                    add_box
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link material-icons-outlined">explore</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link material-icons-outlined">favorite_border</a>
+                </li>
+              </ul>
+              <!-- </div> -->
+            </div>
+          </div>
         </div>
       </div>
     </nav>
 
-    <!-- 메인 화연 -->
+    <!-- 메인 화면  -->
 
-    <div class="d-flex flex-row justify-content-center gap-1 pt-2 h-100" style="margin-top: 56px">
-      <!-- feed -->
-      <div class="left border col-md-6 col-10">
-        <div class="border m-1">
+    <div class="d-flex flex-row justify-content-center gap-1 pt-2 h-auto" style="margin-top: 56px">
+      <!-- LEft-->
+      <div class="left border col-md-7 col-10" style="margin-left: 7%">
+        <!-- feed list -->
+
+        {% for feed in feeds %}
+        <div class="border m-1 mb-2">
           <!-- 프로필 -->
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mx-2 my-1">
             <div>
               <img
                 class="rounded-circle"
                 alt="avatar1"
-                src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
-                style="width: 40px" />
+                src="{{ feed.profile_image }}"
+                style="width: 40px; height: 40px" />
             </div>
-            <div class="ms-1">name</div>
+            <div class="ms-1 fw-bold">{{ feed.user_id }}</div>
           </div>
-          <div class="box text-center">
-            <img class="w-100" src="/sample_images/image-1.jpg" alt="" srcset="" />
+          <!-- 이미지 -->
+          <div class="box text-center mb-1">
+            <img class="w-100" src="{{ feed.image }}" alt="" srcset="" />
           </div>
-          <div>아이콘</div>
-          <div>댓글</div>
-          <div>댓글 잇풋</div>
+          <!-- 아이콘 -->
+          <div class="d-flex justify-content-between mx-2 mb-1">
+            <div>
+              <span class="material-icons-outlined"> favorite_border </span>
+              <span class="material-icons-outlined"> chat_bubble_outline </span>
+              <span class="material-icons-outlined"> send </span>
+            </div>
+            <div>
+              <span class="material-icons-outlined"> bookmark_border </span>
+            </div>
+          </div>
+          <div class="mx-2 mb-1">
+            <div>좋아요 <b>{{ feed.like_count }}</b></div>
+            <div><b>{{feed.user_id}}</b> {{ feed.content }}</div>
+            <div style="margin-top: 5px">댓글</div>
+          </div>
+          <div class="mx-1 mb-1">
+            <input type="text" name="" id="reply" class="form-control" placeholder="댓글 달기..." />
+          </div>
         </div>
+        {% endfor %}
+        <!-- end feed list -->
       </div>
+
       <!-- right -->
       <div
-        class="right border col-md-4 h-100 d-none d-md-block"
-        style="position: fixed; margin-left: 53%">
-        right
+        class="right border col-md-3 h-auto d-none d-md-block p-1"
+        style="position: fixed; margin-left: 60%">
+        <!-- 내프로필 -->
+        <div class="d-flex align-items-center mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 50px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold">ID</div>
+            <div class="" style="color: gray">name</div>
+          </div>
+        </div>
+        <!-- end 내프로필 -->
+
+        <!-- 팔로우 추천 프로필  -->
+        <!-- 상단 -->
+        <div class="d-flex justify-content-between mx-2">
+          <div style="color: gray">회원님을 위한 추천</div>
+          <div>
+            <a href="#" class="fw-bold" style="color: black; text-decoration: none; font-size: 13px"
+              >모두보기</a
+            >
+          </div>
+        </div>
+        <!-- 리스트 시작 -->
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+        <div class="d-flex position-relative mx-2 my-1">
+          <div>
+            <img
+              class="rounded-circle"
+              alt="avatar1"
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
+              style="width: 30px" />
+          </div>
+          <div class="row ms-1">
+            <div class="fw-bold" style="font-size: 14px">ID</div>
+            <div class="text-body-tertiary" style="font-size: 12px">~외 11명이 팔로우 합니다.</div>
+          </div>
+
+          <div class="position-absolute end-0">
+            <a href="#" class="text-primary" style="text-decoration: none; font-size: 13px"
+              >팔로우</a
+            >
+          </div>
+        </div>
+        <div class="text-start mt-3 text-body-tertiary mx-1" style="font-size: 12px">
+          <div>
+            소개 도움말 홍보센터 API 채용정보 <br />
+            개인정보처리방침 약관 위치 인기 계정 해시태그 언어
+            <br /><br />@2021 인스타그램
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!-- add_box modal -->
+    <div class="modal fade" id="add_box" data-bs-backdrop="static" tabindex="-1">
+      <!-- 이미지 업로드 모달 -->
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" id="modal1">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <!-- <h1 class="modal-title fs-5">Modal Title</h1> -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div>새 이미지 업로드</div>
+            <button type="button" class="btn btn-primary">Next</button>
+          </div>
+
+          <div class="modal-body border mx-2 img_upload">
+            <div class="container-fluid">
+              <p id="upload_text">이미지를 올려주세요</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 텍스트 입력 모달 -->
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" id="modal2">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <!-- <h1 class="modal-title fs-5">Modal Title</h1> -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div>텍스트 입력</div>
+            <button type="button" class="btn btn-primary">Next</button>
+          </div>
+
+          <div class="modal-body border mx-2 img_upload">
+            <div class="container-fluid row m-auto">
+              <div class="col-8 left_image border h-100">이미지</div>
+              <div class="col-4 right_text border h-100">텍스트</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal end -->
+
+    <!-- modal js -->
+    <script>
+      $('.img_upload').on('dragover', dragOver).on('dragleave', dragOver).on('drop', uploadFiles);
+
+      function dragOver(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (e.type == 'dragover') {
+          $(e.target).css({
+            'background-color': 'black',
+            'outline-offset': '-20px',
+          });
+        } else {
+          $(e.target).css({
+            'background-color': 'gray',
+            'outline-offset': '-10px',
+          });
+        }
+      }
+
+      function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dragOver(e);
+
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        var files = e.target.files || e.dataTransfer.files;
+        if (files.length > 1) {
+          alert('하나만 올려라.');
+          return;
+        }
+        if (files[0].type.match(/image.*/)) {
+          $('#modal1').css({
+            display: 'none',
+          });
+
+          $('#modal2').css({
+            display: 'flex',
+          });
+
+          $(e.target).css({
+            'background-image': 'url(' + window.URL.createObjectURL(files[0]) + ')',
+            outline: 'none',
+            'background-size': '100% 100%',
+          });
+          const uptext = document.getElementById('upload_text');
+          uptext.innerText = '';
+        } else {
+          alert('이미지가 아닙니다.');
+          return;
+        }
+      }
+    </script>
   </body>
 </html>
