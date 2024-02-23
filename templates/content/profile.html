@@ -1,259 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
+
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     {% load static %}
 
     <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous" />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <!-- jquery -->
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- google -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-      rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet"/>
 
-    <style>
-      body,
-      html {
-        height: 100%;
-        -ms-overflow-style: none;
-        /* 스크롤바 제거 모바일페이지에서 작동안함*/
-      }
-
-      ::-webkit-scrollbar {
-        /* 스크롤바 제거*/
-        display: none;
-      }
-
-      input.search {
-        background-repeat: no-repeat;
-        border: 1px solid #ccc;
-        padding: 5px;
-        width: 300px;
-      }
-
-      input::-webkit-input-placeholder {
-        background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png');
-        background-size: contain;
-        background-position: 1px center;
-        background-repeat: no-repeat;
-        text-align: center;
-        text-indent: 0;
-      }
-
-      .reply {
-        box-shadow: none;
-      }
-
-      .reply::-webkit-input-placeholder {
-        background-image: none;
-        text-align: start;
-      }
-
-      @media (min-width: 768px) {
-        img.rounded-circle {
-          width: 150px;
-        }
-
-        div.profile-container {
-          display: grid;
-          height: 335px;
-          grid-template-columns: 1fr 2fr;
-          grid-template-rows: 1fr 1fr 1fr;
-          grid-gap: 1px;
-          grid-template-areas:
-            'profile-img profile-nickname profile-nickname'
-            'profile-img profile-tab profile-tab'
-            'profile-img profile-name profile-name';
-          padding: 0px;
-        }
-        .profile-img {
-          grid-area: profile-img;
-        }
-        .profile-nickname {
-          grid-area: profile-nickname;
-        }
-        .profile-tab {
-          grid-area: profile-tab;
-        }
-        .profile-name {
-          grid-area: profile-name;
-        }
-      }
-
-      @media (768px >=width) {
-        input.search {
-          width: 100%;
-        }
-
-        img.rounded-circle {
-          width: 77px;
-        }
-
-        div.profile-container {
-          display: grid;
-          height: 335px;
-          grid-template-columns: 1fr 4fr;
-          grid-template-rows: 1fr 1fr 1fr;
-          grid-gap: 1px;
-          grid-template-areas:
-            'profile-img profile-nickname profile-nickname'
-            'profile-tab profile-tab profile-tab'
-            'profile-name profile-name profile-name';
-          padding: 0px;
-        }
-        .profile-img {
-          grid-area: profile-img;
-        }
-        .profile-nickname {
-          grid-area: profile-nickname;
-        }
-        .profile-tab {
-          grid-area: profile-tab;
-        }
-        .profile-name {
-          grid-area: profile-name;
-        }
-      }
-
-      /* 모달 창 사이즈 조절 */
-      .modal-content,
-      .modal-dialog {
-        height: 70%;
-      }
-
-      .modal-body {
-        max-height: calc(100% - 120px);
-        overflow-y: scroll;
-      }
-
-      .dropdown-toggle::after {
-        content: none;
-      }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <title>Hello, world!</title>
   </head>
 
   <body class="">
     <!-- 네비바 -->
-    <nav class="navbar bg-white navbar-expand-md d-flex flex-nowrap fixed-top w-100">
-      <!-- 로고 -->
-      <div class="container-fluid p-0" style="width: 84%">
-        <a class="navbar-brand" href="/main">
-          <img
-            src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
-            alt=""
-            srcset=""
-            style="width: 50%" />
-        </a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar2"
-          aria-controls="offcanvasNavbar2">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div
-          class="offcanvas offcanvas-end text-bg-white w-50"
-          tabindex="-1"
-          id="offcanvasNavbar2"
-          aria-labelledby="offcanvasNavbar2Label">
-          <div class="offcanvas-body">
-            <!-- 검색 -->
-            <div style="margin: 0 auto">
-              <form class="form-inline" role="search" id="search">
-                <input
-                  class="search form-control"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search" />
-              </form>
-            </div>
-
-            <!-- 메뉴 -->
-            <div>
-              <!-- 메뉴 리스트 -->
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link material-icons">home</a>
-                </li>
-                <li class="nav-item" style="cursor: pointer">
-                  <a
-                    class="nav-link material-icons-outlined"
-                    data-bs-toggle="modal"
-                    data-bs-target="#add_box">
-                    add_box
-                  </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style="width: 40px; height: 40px">
-                    <img
-                      class="rounded-circle"
-                      alt="avatar1"
-                      src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp"
-                      style="width: 25px" />
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li>
-                      <a href="#" class="dropdown-item text-center">프로필</a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li>
-                      <a href="/user/logout" class="dropdown-item text-center">로그아웃</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    {% include "../navbar.html" %}
 
     <!-- 메인 화면 -->
     <main class="d-flex flex-row justify-content-center gap-1 pt-2 h-auto" style="margin-top: 56px">
       <!-- top profile -->
-      <div class="border row col-10 gap-1">
-        <div class="profile-container border">
-          <div class="profile-img border d-flex align-items-center justify-content-center">
-            <img
-              class="profile rounded-circle"
-              alt="avatar1"
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp" />
+      <div class="row col-10 gap-1">
+        <div class="profile-container">
+          <div class="profile-img d-flex align-items-center justify-content-center p-2">
+            <img class="profile rounded-circle" alt="avatar1" src="{% get_media_prefix %}{{ user.profile_image }}"/>
           </div>
-          <div class="profile-nickname border profile-nick">닉네임</div>
-          <div class="profile-tab border profile-follow">게시물팔로워팔로우</div>
-          <div class="profile-name border profile-name">이름</div>
+          <div class="profile-nickname profile-nick d-flex align-items-center gap-3" style="padding-left: 12px; padding-right: 12px">
+            <span class="fs-5">{{ user.nickname }}</span>
+            <button id="button_profile_upload" class="btn btn-outline-dark btn-sm">
+              프로필 편집
+            </button>
+            <input type="file" id="input_fileupload" onchange="profile_upload();" style="display: none"/>
+            <span class="material-icons-outlined">settings</span>
+          </div>
+          <div class="profile-tab profile-follow d-flex align-items-center gap-3" style="padding-left: 12px; padding-right: 12px">
+            <div style="float: left">게시물 111</div>
+            <div style="float: left">팔로워 222</div>
+            <div style="float: left">팔로우 333</div>
+          </div>
+          <div class="profile-name profile-name d-flex align-items-center gap-1 row mx-0 pt-1">
+            <p class="fw-bold" style="margin-bottom: 2px">{{ user.name }}</p>
+            <div class="intro pt-1" style="line-height: 2px">
+              <p>test text</p>
+              <p>test text</p>
+              <p>test text</p>
+              <p>test text</p>
+              <p>test text</p>
+              <p>test text</p>
+              <p>test text</p>
+            </div>
+          </div>
         </div>
+
         <!-- feed images -->
-        <div class="feed-container border" style="padding: 0px">
-          <div class="feed-tab border">탭</div>
+        <div class="feed-container" style="padding: 0px">
+          <div class="feed-tab d-flex justify-content-center border-top border-bottom p-0 text-center">
+            <div class="" aria-selected='true' role='tab' style="margin:auto 0px; width:100px">내 피드</div>
+            <div class="" aria-selected='false' role='tab' style="margin:auto 0px; width:100px">좋아요</div>
+            <div class="" aria-selected='false' role='tab' style="margin:auto 0px; width:100px">북마크</div>
+          </div>
           <div class="feed-img border" style="min-height: 1000px">이미지들</div>
         </div>
       </div>
@@ -281,10 +93,7 @@
       </div>
 
       <!-- 텍스트 입력 모달 -->
-      <div
-        class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
-        id="modal2"
-        style="display: none">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" id="modal2" style="display: none">
         <div class="modal-content">
           <div class="modal-header border-0">
             <!-- <h1 class="modal-title fs-5">Modal Title</h1> -->
@@ -297,12 +106,7 @@
             <div class="container-fluid row m-auto h-100">
               <div class="left_image border col-8" style="height: inherit"></div>
               <div class="right_text col-4" style="height: inherit">
-                <textarea
-                  class="form-control rounded-0"
-                  id="input_feed_content"
-                  rows="3"
-                  placeholder="텍스트입력"
-                  style="height: inherit; resize: none; overflow-x: hidden"></textarea>
+                <textarea class="form-control rounded-0" id="input_feed_content" rows="3" placeholder="텍스트입력" style="height: inherit; resize: none; overflow-x: hidden"></textarea>
               </div>
             </div>
           </div>
@@ -312,19 +116,23 @@
     <!-- modal end -->
 
     <!-- modal js -->
+
     <script>
       /* files : 업로드 이미지 */
       let files;
 
-      $('.img_upload').on('dragover', dragOver).on('dragleave', dragOver).on('drop', uploadFiles);
+      $('.img_upload')
+        .on('dragover', dragOver)
+        .on('dragleave', dragOver)
+        .on('drop', uploadFiles);
 
       function dragOver(e) {
         e.stopPropagation();
         e.preventDefault();
         if (e.type == 'dragover') {
-          $(e.target).css({ 'background-color': 'black', 'outline-offset': '-20px' });
+          $(e.target).css({'background-color': 'black', 'outline-offset': '-20px'});
         } else {
-          $(e.target).css({ 'background-color': 'gray', 'outline-offset': '-10px' });
+          $(e.target).css({'background-color': 'gray', 'outline-offset': '-10px'});
         }
       }
 
@@ -340,9 +148,9 @@
           return;
         }
         if (files[0].type.match(/image.*/)) {
-          $('#modal1').css({ display: 'none' });
+          $('#modal1').css({display: 'none'});
 
-          $('#modal2').css({ display: 'flex' });
+          $('#modal2').css({display: 'flex'});
 
           $('#feed_create_button').click(function () {
             alert('업로드');
@@ -350,16 +158,12 @@
             let file = files[0];
             let image = files[0].name;
             let content = $('#input_feed_content').val();
-            let user_id = 'test_id';
-            let profile_image = 'https://mdbcdn.b-cdn.net/img/new/avatars/9.webp';
 
             let fd = new FormData();
 
             fd.append('file', file);
             fd.append('image', image);
             fd.append('content', content);
-            fd.append('user_id', user_id);
-            fd.append('profile_image', profile_image);
 
             $.ajax({
               url: '/content/upload',
@@ -376,16 +180,18 @@
               complete: function () {
                 console.log('완료');
                 location.replace('');
-              },
+              }
             });
           });
 
           $('.left_image').css({
-            'background-image': 'url(' + window.URL.createObjectURL(files[0]) + ')',
+            'background-image': 'url(' + window
+              .URL
+              .createObjectURL(files[0]) + ')',
             outline: 'none',
             'background-size': 'contain',
             'background-repeat': 'no-repeat',
-            'background-position': 'center',
+            'background-position': 'center'
           });
           const uptext = document.getElementById('upload_text');
           uptext.innerText = '';
@@ -393,6 +199,40 @@
           alert('이미지가 아닙니다.');
         }
       }
+
+      /* 프로필사진변경 */
+      $('#button_profile_upload').click(function () {
+        $('#input_fileupload').click();
+      });
+
+      function profile_upload() {
+        let file = $('#input_fileupload')[0].files[0];
+        let email = '{{ user.email }}';
+
+        let fd = new FormData();
+
+        fd.append('file', file);
+        fd.append('email', email);
+
+        $.ajax({
+          url: '/user/profile/upload',
+          data: fd,
+          method: 'POST',
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            console.log('성공');
+          },
+          error: function (request, status, error) {
+            console.log('에러');
+          },
+          complete: function () {
+            console.log('완료');
+            location.replace('/content/profile');
+          }
+        });
+      }
     </script>
   </body>
+
 </html>

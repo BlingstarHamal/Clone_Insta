@@ -1,0 +1,144 @@
+body,
+html {
+    height: 100%;
+    -ms-overflow-style: none;
+    /* 스크롤바 제거 모바일페이지에서 작동안함*/
+}
+
+::-webkit-scrollbar {
+    /* 스크롤바 제거*/
+    display: none;
+}
+
+input.search {
+    background-repeat: no-repeat;
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 300px;
+}
+
+input::-webkit-input-placeholder {
+    background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png');
+    background-size: contain;
+    background-position: 1px center;
+    background-repeat: no-repeat;
+    text-align: center;
+    text-indent: 0;
+}
+
+.reply_input {
+    box-shadow: none;
+}
+
+.reply_input::-webkit-input-placeholder {
+    background-image: none;
+    text-align: start;
+}
+
+hr.dropdown-divider {
+    margin: auto !important;
+}
+
+
+@media (min-width: 768px) {
+    .left {
+        margin-right: 33%;
+    }
+
+    img.profile.rounded-circle {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    div.profile-container {
+        display: grid;
+        min-height: 155px;
+        grid-template-columns: 1fr 3fr;
+        grid-template-rows: 1fr 1fr auto;
+        grid-gap: 1px;
+        grid-template-areas: 'profile-img profile-nickname profile-nickname' 'profile-img profile-tab profile-tab' 'profile-img profile-name profile-name';
+        padding: 0;
+    }
+
+    .profile-img {
+        grid-area: profile-img;
+    }
+
+    .profile-nickname {
+        grid-area: profile-nickname;
+    }
+
+    .profile-tab {
+        grid-area: profile-tab;
+    }
+
+    .profile-name {
+        grid-area: profile-name;
+    }
+
+    .feed-tab {
+        height: 53px;
+    }
+}
+
+@media (768px >=width) {
+    .left {
+        margin-right: 6%;
+    }
+
+    input.search {
+        width: 100%;
+    }
+
+    img.profile.rounded-circle {
+        width: 77px;
+        height: 77px;
+        object-fit: cover;
+    }
+
+    div.profile-container {
+        display: grid;
+        min-height: 77px;
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: 1fr 1fr auto;
+        grid-gap: 1px;
+        grid-template-areas: 'profile-img profile-nickname profile-nickname' 'profile-tab profile-tab profile-tab' 'profile-name profile-name profile-name';
+        padding: 0;
+    }
+
+    .profile-img {
+        grid-area: profile-img;
+    }
+
+    .profile-nickname {
+        grid-area: profile-nickname;
+    }
+
+    .profile-tab {
+        grid-area: profile-tab;
+    }
+
+    .profile-name {
+        grid-area: profile-name;
+    }
+
+    .feed-tab {
+        height: 44px;
+    }
+}
+
+/* 모달 창 사이즈 조절 */
+.modal-content,
+.modal-dialog {
+    height: 70%;
+}
+
+.modal-body {
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
