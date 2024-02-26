@@ -12,9 +12,11 @@ class Main(APIView):
     def get(self,request):
         
         email = request.session.get('email',None)
+        
         if email is None:
             return render(request, 'user/login.html')
         user = User.objects.filter(email=email).first()
+        
         if user is None:
             return render(request, 'user/login.html')
         
@@ -22,7 +24,9 @@ class Main(APIView):
         feed_list = []
         
         for feed in feed_object_list:
+            
             user = User.objects.filter(email=feed.email).first()
+            
             reply_object_list = Reply.objects.filter(feed_id=feed.id)
             reply_list = []
             for reply in reply_object_list:
@@ -31,7 +35,7 @@ class Main(APIView):
                                     reply_content=reply.reply_content,
                                     nickname=user.nickname,
                                     ))
-            
+            user = User.objects.filter(email=email).first() # for문에서 user가 변경되어 다시불러옴
             like_count = Like.objects.filter(feed_id=feed.id, is_like=True).count()
             is_liked = Like.objects.filter(feed_id=feed.id, email=user.email, is_like=True).exists()
             is_marked = Bookmark.objects.filter(feed_id=feed.id, email=user.email, is_marked=True).exists()
@@ -46,7 +50,6 @@ class Main(APIView):
                                 is_liked=is_liked,
                                 is_marked=is_marked,
                                 ))
-        
 
         return render(request, 'clone_insta/main.html', context=dict(feeds=feed_list, user=user))
         
@@ -68,24 +71,32 @@ class UploadFeed(APIView):
         content = request.data.get('content')
         email = request.session.get('email', None)
         
-        
-        Feed.objects.create(image=image, content=content, email=email, like_count=0)
+        Feed.objects.create(image=image, content=content, email=email)
         
         return Response(status=200)
     
 class Profile(APIView):
     def get(self,request):
+        
         email = request.session.get('email',None)
-
+        
         if email is None:
             return render(request, 'user/login.html')
-
         user = User.objects.filter(email=email).first()
-
+        
         if user is None:
             return render(request, 'user/login.html')
         
-        return render(request,'content/profile.html', context=dict(user=user))
+        feed_list = Feed.objects.filter(email=email)
+        like_list = list(Like.objects.filter(email=email, is_like=True).values_list('feed_id', flat=True))
+        like_feed_list = Feed.objects.filter(id__in=like_list)
+        bookmark_list = list(Bookmark.objects.filter(email=email,is_marked=True).values_list('feed_id', flat=True))
+        bookmark_feed_list = Feed.objects.filter(id__in=bookmark_list)
+        
+        return render(request,'content/profile.html', context=dict(feed_list=feed_list,
+                                                                like_feed_list=like_feed_list,
+                                                                bookmark_feed_list=bookmark_feed_list,
+                                                                user=user))
     
 
 class UploadReply(APIView):

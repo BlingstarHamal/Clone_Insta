@@ -25,6 +25,7 @@
     <!-- 네비바 -->
     {% include "../navbar.html" %}
     <!-- 메인 화면 -->
+    {{user.name}}
 
     <div class="d-flex flex-row justify-content-center gap-1 pt-2 h-auto" style="margin-top: 56px">
       <!-- LEft-->
@@ -83,7 +84,8 @@
               <div id="reply_list_{{ feed.id }}" style="margin-top: 8px">
                 {% for reply in feed.reply_list %}
                   <div>
-                    <b>{{ reply.nickname }}</b>
+                    <b>{{ reply.nickname }}
+                    </b>
                     {{ reply.reply_content }}</div>
                 {% endfor %}
               </div>
@@ -105,7 +107,7 @@
         <!-- 내프로필 -->
         <div class="d-flex align-items-center mx-2 my-1">
           <div>
-            <img class="rounded-circle" alt="avatar1" src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp" style="width: 50px"/>
+            <img class="rounded-circle" alt="avatar1" src="{% get_media_prefix %}{{ user.profile_image }}" style="width: 50px;height:50px"/>
           </div>
           <div class="row ms-1">
             <div class="fw-bold">{{ user.nickname }}</div>
@@ -298,11 +300,11 @@
 
       /* 댓글 게시 버튼 활성화 */
       /*$(function () {
-                                                                                                                                              $('.reply_input').on('input', function () {
-                                                                                                                                                if ($('.reply_input').val() == '') $('#reply_button').attr('disabled', true);
-                                                                                                                                                else $('#reply_button').attr('disabled', false);
-                                                                                                                                              });
-                                                                                                                                            });*/
+                                                                                                                                                                $('.reply_input').on('input', function () {
+                                                                                                                                                                  if ($('.reply_input').val() == '') $('#reply_button').attr('disabled', true);
+                                                                                                                                                                  else $('#reply_button').attr('disabled', false);
+                                                                                                                                                                });
+                                                                                                                                                              });*/
 
       /* 댓글 게시 */
       $('.upload_reply').click(function (e) {
@@ -330,7 +332,7 @@
           method: 'POST',
           success: function (data) {
             console.log('성공');
-            $('#reply_list_' + feed_id).append('<div><b>{{ user.nickname }}</b>' + reply_content + '</div>');
+            $('#reply_list_' + feed_id).append('<div><b>{{ user.nickname }} </b>' + reply_content + '</div>');
           },
           error: function (request, status, error) {
             console.log('에러');

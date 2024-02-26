@@ -39,6 +39,13 @@ hr.dropdown-divider {
     margin: auto !important;
 }
 
+.feed-img-ele {
+    width: 33.3%;
+    overflow: hidden;
+
+}
+
+
 
 @media (min-width: 768px) {
     .left {
@@ -125,6 +132,10 @@ hr.dropdown-divider {
 
     .feed-tab {
         height: 44px;
+    }
+
+    .tab-name {
+        display: none;
     }
 }
 
