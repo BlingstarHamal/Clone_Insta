@@ -24,7 +24,6 @@ class Main(APIView):
         feed_list = []
         
         for feed in feed_object_list:
-            
             user = User.objects.filter(email=feed.email).first()
             
             reply_object_list = Reply.objects.filter(feed_id=feed.id)
@@ -52,8 +51,6 @@ class Main(APIView):
                                 ))
 
         return render(request, 'clone_insta/main.html', context=dict(feeds=feed_list, user=user))
-        
-    
 
 class UploadFeed(APIView):
     def post(self, request):
@@ -97,7 +94,7 @@ class Profile(APIView):
                                                                 like_feed_list=like_feed_list,
                                                                 bookmark_feed_list=bookmark_feed_list,
                                                                 user=user))
-    
+
 
 class UploadReply(APIView):
     def post(self,request):
@@ -108,9 +105,7 @@ class UploadReply(APIView):
         Reply.objects.create(feed_id=feed_id, email=email, reply_content=reply_content)
         
         return Response(status=200)
-    
-    
-    
+
 class ToggleLike(APIView):
     def post(self,request):
         feed_id = request.data.get('feed_id',None)
